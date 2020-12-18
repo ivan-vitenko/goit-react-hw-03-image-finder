@@ -17,7 +17,6 @@ class ImageGallery extends Component {
 
   async componentDidMount() {
     this.setState({ showLoader: true });
-
     await this.fetchImages(this.props.query, this.props.page);
     this.setState({ showLoader: false });
   }
@@ -29,7 +28,7 @@ class ImageGallery extends Component {
     const prevPage = prevProps.page;
     const nextPage = this.props.page;
 
-    if (prevPage !== nextPage) {
+    if (prevPage !== nextPage || prevQuery !== nextQuery) {
       if (prevQuery !== nextQuery) {
         this.setState({
           images: [],
@@ -38,7 +37,6 @@ class ImageGallery extends Component {
       }
 
       this.setState({ showLoader: true });
-
       await this.fetchImages(nextQuery, nextPage);
       this.setState({ showLoader: false });
     }
